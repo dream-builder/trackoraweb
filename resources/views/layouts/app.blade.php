@@ -107,9 +107,9 @@
                 <!-- Replace src with your loading image URL -->
                 <img src="images/school_bus_loading.gif" alt="Loading spinner">
             </div>
-            <div class="right">
-                Loading...
-            </div>
+            {{-- <div class="right">
+                Processing...
+            </div> --}}
         </div>
     </div>
 

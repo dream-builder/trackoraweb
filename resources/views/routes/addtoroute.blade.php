@@ -181,7 +181,7 @@
 
             const token = $('input[name="_token"]').val();
 
-
+            $("#loading").css('visibility', 'visible');
             $.ajax({
                 url: '/bus/get_available_students',
                 method: 'POST',
@@ -203,6 +203,7 @@
                         });
 
                     }
+                    $("#loading").css('visibility', 'hidden');
                 },
                 // error: function(xhr) {
                 //     json = JSON.parse(xhr.responseText);
@@ -220,7 +221,7 @@
 
             const token = $('input[name="_token"]').val();
 
-
+            $("#loading").css('visibility', 'visible');
             $.ajax({
                 url: '/route/get_students_on_route',
                 method: 'POST',
@@ -242,6 +243,8 @@
                         });
 
                     }
+
+                    $("#loading").css('visibility', 'hidden');
                 },
                 // error: function(xhr) {
                 //     json = JSON.parse(xhr.responseText);
@@ -259,11 +262,14 @@
 
             $("#bus").change(function() {
 
+                
                 $("#available-student").empty();
                 $("#student-on-bus").empty();
 
                 get_available_students();
                 get_students_on_bus();
+
+               
             });
 
 

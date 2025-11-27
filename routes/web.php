@@ -56,7 +56,7 @@ Route::get('/routes', [BusRouteController::class, 'index'])->name('route.show');
 Route::post('/saveroute', [BusRouteController::class, 'save_route'])->name('route.save');
 Route::post('/loadroute', [BusRouteController::class, 'load_route'])->name('route.load');
 Route::post('/route/get_students_on_route', [BusRouteController::class, 'get_students_on_route']);
-
+Route::post('/route/register_student_on_route', [BusRouteController::class, 'register_student_on_route']);
 
 
 

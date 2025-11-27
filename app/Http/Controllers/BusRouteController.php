@@ -106,4 +106,37 @@ class BusRouteController extends Controller
        return $students;
 
     }
+
+     public function register_student_on_route(Request $request){
+
+        $student_id = $request->json('students');
+        $bus_id = $request->json('bus_id');
+
+      //  var_dump($student_id);
+      //  var_dump($bus_id);
+
+        try{
+
+                foreach($student_id as $id){
+                    DB::table('student_bus_map')->insert([
+                    'bus_id'   => $bus_id,
+                    'student_id' => $id,
+                    'created_at'   => now()
+                ]);
+
+                }
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Information save successfully!'
+                ]);
+
+        }catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to save information: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
