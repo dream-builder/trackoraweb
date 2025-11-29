@@ -268,17 +268,15 @@
         //-- end of waypoint manage
 
 
-
-
         let map, directionsService, directionsRenderer;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 center: {
-                    lat: 20.5937,
-                    lng: 78.9629
+                    lat: {{ config('map.INIT_LAT') }},
+                    lng: {{ config('map.INIT_LNG') }}
                 },
-                zoom: 5
+                zoom: 9
             });
 
             directionsService = new google.maps.DirectionsService();
