@@ -69,12 +69,12 @@
                                     <p>Register Student to Route</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="./widgets/info-box.html" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Guardian</p>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 @endif
