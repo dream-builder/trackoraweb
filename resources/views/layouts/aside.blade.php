@@ -37,31 +37,7 @@
                     </li>
                 @endif
 
-                {{-- Live --}}
-                @if ($role_name == 'Admin')
-                    <li class="nav-item ">
-                        <a href="{{ route('live.show') }}" class="nav-link">
-                            <i class="nav-icon bi bi-pin-map-fill"></i>
-                            <p>
-                                Live
-                            </p>
-                        </a>
 
-                    </li>
-                @endif
-
-                {{-- Live Student --}}
-                @if ($role_name == 'Admin')
-                    <li class="nav-item ">
-                        <a href="{{ route('live.student') }}" class="nav-link">
-                            <i class="nav-icon bi bi-pin-map-fill"></i>
-                            <p>
-                                Live Student
-                            </p>
-                        </a>
-
-                    </li>
-                @endif
 
                 {{-- Manage student  --}}
                 @if ($role_name == 'Admin')
