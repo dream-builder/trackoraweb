@@ -143,3 +143,11 @@ Route::get('/api/update_student_status', [APIController::class, 'update_student_
 // });
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'bn'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+});
