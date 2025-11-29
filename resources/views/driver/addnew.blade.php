@@ -40,6 +40,76 @@
                             <div class="card-body">
                                 <!--begin::Row-->
                                 <div class="row g-3">
+
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <label for="driver_name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="driver_name" name="driver_name"
+                                            required="">
+                                        <div class="invalid-feedback">This field is required.</div>
+                                        <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                    <!--end::Col-->
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            required="">
+                                        <div class="invalid-feedback">Email is not valid.</div>
+                                    </div>
+                                    <!--end::Col-->
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+
+                                        <label for="gender" class="form-label">Gender</label>
+
+                                        <select class="form-select" id="gender" name="gender">
+                                            <option>Choose...</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                    <!--end::Col-->
+
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <label for="dob" class="form-label">Date of Birth</label>
+                                        <div class="input-group has-validation">
+                                            <input type="date" class="form-control" id="dob"
+                                                aria-describedby="inputGroupPrepend" required="" name="dob">
+                                            <div class="invalid-feedback">This field is required.</div>
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+
+
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone_number"
+                                            required="">
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                    <!--end::Col-->
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address"
+                                            required="">
+                                        <div class="invalid-feedback">This field is required.</div>
+                                    </div>
+                                    <!--end::Col-->
+
+
                                     <!--begin::Col-->
                                     <div class="col-md-6">
                                         <label for="validationCustom01" class="form-label">Driving License Number</label>
@@ -72,77 +142,15 @@
                                     <!--end::Col-->
 
 
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <label for="driver_name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="driver_name" name="driver_name"
-                                            required="">
-                                        <div class="invalid-feedback">This field is required.</div>
-                                        <div class="valid-feedback">Looks good!</div>
-                                    </div>
-                                    <!--end::Col-->
 
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-
-                                        <label for="gender" class="form-label">Gender</label>
-
-                                        <select class="form-select" id="gender" name="gender">
-                                            <option>Choose...</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-
-                                        <div class="invalid-feedback">This field is required.</div>
-                                    </div>
-                                    <!--end::Col-->
 
 
                                     <!--begin::Col-->
                                     <div class="col-md-6">
-                                        <label for="dob" class="form-label">Date of Birth</label>
-                                        <div class="input-group has-validation">
-                                            <input type="date" class="form-control" id="dob"
-                                                aria-describedby="inputGroupPrepend" required="" name="dob">
-                                            <div class="invalid-feedback">This field is required.</div>
-                                        </div>
-                                    </div>
-                                    <!--end::Col-->
-
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                            required="">
-                                        <div class="invalid-feedback">Email is not valid.</div>
-                                    </div>
-                                    <!--end::Col-->
-
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <label for="phone" class="form-label">Phone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone_number"
-                                            required="">
-                                        <div class="invalid-feedback">This field is required.</div>
-                                    </div>
-                                    <!--end::Col-->
-
-                                    <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                            required="">
-                                        <div class="invalid-feedback">This field is required.</div>
-                                    </div>
-                                    <!--end::Col-->
-
-
-                                    <!--begin::Col-->
-                                    {{-- <div class="col-md-6">
 
                                         <label for="validationCustom04" class="form-label">Route</label>
-                                        <select class="form-select" id="validationCustom04" name="route" required="">
+                                        <select class="form-select" id="validationCustom04" name="route"
+                                            required="">
                                             <option>Choose...</option>
                                             @if (isset($bus_routes) && count($bus_routes) > 0)
                                                 @foreach ($bus_routes as $route)
@@ -152,34 +160,15 @@
 
                                         </select>
                                         <div class="invalid-feedback">Please select a route.</div>
-                                    </div> --}}
-                                    <!--end::Col-->
-
-                                    {{-- <!--begin::Col-->
-                                    <div class="col-md-6">
-                                        <label for="validationCustom04" class="form-label">Driver</label>
-                                        <select class="form-select" id="validationCustom04" name="driver" required="">
-                                            <option>Choose ...</option>
-                                            @if (isset($drivers) && count($drivers) > 0)
-                                                @foreach ($drivers as $driver)
-                                                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
-                                                @endforeach
-                                            @endif
-
-                                        </select>
-                                        <div class="invalid-feedback">Please select a driver.</div>
                                     </div>
-                                    <!--end::Col--> --}}
-
-
-
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Row-->
                             </div>
                             <!--end::Body-->
                             <!--begin::Footer-->
                             <div class="card-footer">
-                                <button class="btn btn-primary" type="submit"><i class="bi bi-floppy-fill"></i>
+                                <button class="btn btn-success" type="submit"><i class="bi bi-floppy-fill"></i>
                                     Save</button>
                             </div>
                             <!--end::Footer-->
@@ -190,7 +179,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <img src="images/school_bus_driver.png" style="width: 100%; height:100vh" />
+                    <img src="images/school_bus_driver.png" style="width: 100%; height:auto" />
                 </div>
 
             </div>
@@ -248,11 +237,24 @@
                                 icon: 'success',
                                 title: 'Success',
                                 text: data.message,
-                                timer: 2500,
+                                timer: 5500,
                                 showConfirmButton: false,
                             });
 
                             form.reset();
+                        } else if (data.status === 'error') {
+
+
+                            $("#loading").css('visibility', 'hidden');
+
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Exists',
+                                text: data.message,
+                                // timer: 2500,
+                                // showConfirmButton: true,
+                            });
+
                         } else {
                             $("#loading").css('visibility', 'hidden');
                             alert(data.message);

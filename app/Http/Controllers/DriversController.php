@@ -37,73 +37,92 @@ class DriversController extends Controller
     public function save(Request $request){
 
 
-        try{
-
-            $license = $request->input('license_no');
-
-            // Check if the registration number already exists
-            $exists = DB::table('drivers')
-                ->where('license_no', $license)
+         // Check if the registration number already exists
+            $exists = DB::table('users')
+                ->where('email', $request->input('email'))
                 ->exists();
 
-            if (!$exists) {
-               $driver_id = DB::table('drivers')->insertGetId([
-                    'license_no'    => $request->input('license_no'),
-                    'license_type'    => $request->input('license_type'),
-                    'name'   => $request->input('driver_name'),
-                    'dob' => $request->input('dob'),
-                    'gender' => $request->input('gender'),
-                    'phone'       => $request->input('phone_number'),
-                    'email' => $request->input('email'),
-                    'address'=> $request->input('address'),
-                    'created_at'   => now()
-                ]);
-
-
-                //Create user for driver
-                $user = User::create([
-                    'name'     => $request->input('driver_name'),
-                    'email'    => $request->input('email'),  // or username
-                    'password' => Hash::make('123456'),
-                ]);
-
-
-                //Just created user id
-                $userId = $user->id;
-
-
-                //User driver Map
-                $usm_id = DB::table('driver_user_map')->insertGetId([
-                    'driver_id'   => $driver_id,
-                    'user_id'    => $userId
-                ]);
-
-                //User Role Map
-                $urm_id = DB::table('user_role_map')->insertGetId([
-                    'user_id'   => $userId,
-                    'role_id'    => 4 //Driver
-                ]);
-
-
-
-
+            if($exists){
                 return response()->json([
-                    'status' => 'success',
-                    'message' => 'Information save successfully!'
+                    'status' => 'error',
+                    'message' => 'Email address "'. $request->input('email') .'" is already reigstered.'
                 ]);
             }
             else{
-                return response()->json([
-                'status' => 'error',
-                'message' => 'The driver with license number : ' . $license ." is already registered!"
-            ], 500);
+                try{
+
+                    $license = $request->input('license_no');
+
+                    // Check if the registration number already exists
+                    $exists = DB::table('drivers')
+                        ->where('license_no', $license)
+                        ->exists();
+
+                    if (!$exists) {
+                    $driver_id = DB::table('drivers')->insertGetId([
+                            'license_no'    => $request->input('license_no'),
+                            'license_type'    => $request->input('license_type'),
+                            'name'   => $request->input('driver_name'),
+                            'dob' => $request->input('dob'),
+                            'gender' => $request->input('gender'),
+                            'phone'       => $request->input('phone_number'),
+                            'email' => $request->input('email'),
+                            'address'=> $request->input('address'),
+                            'created_at'   => now()
+                        ]);
+
+
+                        //Create user for driver
+                        $user = User::create([
+                            'name'     => $request->input('driver_name'),
+                            'email'    => $request->input('email'),  // or username
+                            'password' => Hash::make('123456'),
+                        ]);
+
+
+                        //Just created user id
+                        $userId = $user->id;
+
+
+                        //User driver Map
+                        $usm_id = DB::table('driver_user_map')->insertGetId([
+                            'driver_id'   => $driver_id,
+                            'user_id'    => $userId
+                        ]);
+
+                        //User Role Map
+                        $urm_id = DB::table('user_role_map')->insertGetId([
+                            'user_id'   => $userId,
+                            'role_id'    => 4 //Driver
+                        ]);
+
+
+                        //User Route Map
+                        $urm_id = DB::table('driver_route_map')->insertGetId([
+                            'driver_id'   => $driver_id,
+                            'route_id'    => $request->input('route', 0) //if set elase 0
+                        ]);
+
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Information save successfully!'
+                        ]);
+                    }
+                    else{
+                        return response()->json([
+                        'status' => 'error',
+                        'message' => 'The driver with license number : ' . $license ." is already registered!"
+                    ], 500);
+                    }
+                }catch (\Exception $e) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Failed to save information: ' . $e->getMessage()
+                    ], 500);
+                }
             }
-        }catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to save information: ' . $e->getMessage()
-            ], 500);
-        }
+
+
     }
 
     public function assignvehicle(Request $request){
