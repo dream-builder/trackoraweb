@@ -133,17 +133,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('driver.show') }}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Driver list</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ route('driver.addnew') }}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Add new driver </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('driver.show') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Driver list</p>
+                                </a>
+                            </li>
+
 
                             {{-- <li class="nav-item">
                             <a href="{{ route('driver.assignvehicle') }}" class="nav-link">
