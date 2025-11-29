@@ -10,63 +10,90 @@ class StudentController extends Controller
 {
     public function index(){
 
-        return view('student.student');
+        $sql = "Select id, route_name from bus_routes";
+        $result = DB::select($sql);
+
+
+        return view('student.student', ['routes'=> $result]);
     }
 
 
     public function add_new(Request $request) {
 
-        try{
+        //Checking Exist email
+         $exists = DB::table('users')
+            ->where('email', $request->input('email'))
+            ->exists();
 
-            //Create new Student
-            $student_id = DB::table('students')->insertGetId([
-                'first_name'   => $request->input('first_name'),
-                'last_name'    => $request->input('last_name'),
-                'gender'       => $request->input('gender'),
-                'date_of_birth'=> $request->input('dob'),
-                'email'        => $request->input('email'),
-                'phone_number' => $request->input('phone_number'),
-                'address'      => $request->input('address'),
-                'class'        => $request->input('class'),
-                'roll_number'  => $request->input('roll_number'),
-                'pickup_point' => $request->input('pickup_location'),
-                'created_at'   => now()
-            ]);
+            if($exists){
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Student slready registerd.'
+                    ]);
+            }
+            else{
+                 try{
+                    //Create new Student
+                    $student_id = DB::table('students')->insertGetId([
+                        'first_name'   => $request->input('first_name'),
+                        'last_name'    => $request->input('last_name'),
+                        'gender'       => $request->input('gender'),
+                        'date_of_birth'=> $request->input('dob'),
+                        'email'        => $request->input('email'),
+                        'phone_number' => $request->input('phone_number'),
+                        'address'      => $request->input('address'),
+                        'class'        => $request->input('class'),
+                        'roll_number'  => $request->input('roll_number'),
+                        'pickup_point' => $request->input('pickup_location'),
+                        'created_at'   => now()
+                    ]);
 
-            //Create user for sutdent
-            $user = User::create([
-                'name'     => $request->input('first_name') ." ". $request->input('last_name'),
-                'email'    => $request->input('email'),  // or username
-                'password' => Hash::make('123456'),
-            ]);
+                    //Create user for sutdent
+                    $user = User::create([
+                        'name'     => $request->input('first_name') ." ". $request->input('last_name'),
+                        'email'    => $request->input('email'),  // or username
+                        'password' => Hash::make('123456'),
+                    ]);
 
 
-            //Just created user id
-            $userId = $user->id;
+                    //Just created user id
+                    $userId = $user->id;
 
 
-            //User Student Map
-             $usm_id = DB::table('user_student_map')->insertGetId([
-                'student_id'   => $student_id,
-                'user_id'    => $userId
-             ]);
+                    //User Student Map
+                    $usm_id = DB::table('user_student_map')->insertGetId([
+                        'student_id'   => $student_id,
+                        'user_id'    => $userId
+                    ]);
 
-            //User Role Map
-             $urm_id = DB::table('user_role_map')->insertGetId([
-                'user_id'   => $userId,
-                'role_id'    => 2 //Student
-             ]);
+                    //User Role Map
+                    $urm_id = DB::table('user_role_map')->insertGetId([
+                        'user_id'   => $userId,
+                        'role_id'    => 2 //Student
+                    ]);
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Student inserted successfully!' . $student_id
-            ]);
-        }catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to insert student: ' . $e->getMessage()
-            ], 500);
-        }
+
+                    //student route map
+                    $srm_id = DB::table('student_route_map')->insertGetId([
+                    'student_id'   =>  $student_id,
+                    'route_id'    => $request->input('route')
+                    ]);
+
+
+
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Student inserted successfully!' . $student_id
+                    ]);
+                }catch (\Exception $e) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Failed to insert student: ' . $e->getMessage()
+                    ], 500);
+                }
+            }
+
+
 
     }
 

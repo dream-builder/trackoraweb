@@ -137,13 +137,31 @@
                                     <!--end::Col-->
 
 
+                                    <!--begin::Col-->
+                                    <div class="col-md-6">
+
+                                        <label for="validationCustom04" class="form-label">Route</label>
+                                        <select class="form-select" id="validationCustom04" name="route"
+                                            required="">
+                                            <option selected="" disabled="">Choose...</option>
+                                            @foreach ($routes as $route)
+                                                <option value="{{ $route->id }}">{{ $route->route_name }}</option>
+                                            @endforeach
+
+
+                                        </select>
+                                        <div class="invalid-feedback">Please select a route</div>
+                                    </div>
+                                    <!--end::Col-->
+
+
                                 </div>
                                 <!--end::Row-->
                             </div>
                             <!--end::Body-->
                             <!--begin::Footer-->
                             <div class="card-footer">
-                                <button class="btn btn-primary" type="submit"><i class="bi bi-floppy-fill"></i>
+                                <button class="btn btn-success" type="submit"><i class="bi bi-floppy-fill"></i>
                                     Save Student Information</button>
                             </div>
                             <!--end::Footer-->
@@ -162,49 +180,74 @@
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="card-body">
+
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="nav-icon bi bi-pin-map-fill"></i></span>
+                                </div>
+                                <input id="searchInput" type="text" class="form-control"
+                                    placeholder="Search a place...">
+                            </div>
+
                             <div id="map" style="width: 100%; height:400px; background-color:#FF0">
                             </div>
 
                             <script>
-                                let map;
-                                let marker;
+                                let map, marker, autocomplete;
 
-                                function initMap() {
-                                    // Default location (Dhaka)
-                                    const defaultLocation = {
-                                        lat: 23.8103,
-                                        lng: 90.4125
-                                    };
+                                async function initMap() {
+                                    // Load core maps library
+                                    const {
+                                        Map
+                                    } = await google.maps.importLibrary("maps");
+                                    const {
+                                        Marker
+                                    } = await google.maps.importLibrary("marker");
+                                    const {
+                                        Autocomplete
+                                    } = await google.maps.importLibrary("places");
 
-                                    map = new google.maps.Map(document.getElementById("map"), {
-                                        zoom: 10,
-                                        center: defaultLocation,
+                                    const defaultPos = {
+                                        lat: {{ config('map.INIT_LAT') }},
+                                        lng: {{ config('map.INIT_LNG') }}
+                                    }; // Dhaka
+
+                                    map = new Map(document.getElementById("map"), {
+                                        center: defaultPos,
+                                        zoom: 13
                                     });
 
-                                    // Map Click Event
-                                    map.addListener("click", (e) => {
-                                        const clickedLocation = e.latLng;
-
-
-
-                                        // Set textbox values
-                                        document.getElementById("pickup_location").value = clickedLocation;
-                                        //document.getElementById("lng").value = clickedLocation.lng();
-
-                                        // Place/Move marker
-                                        placeMarker(clickedLocation);
+                                    marker = new Marker({
+                                        position: defaultPos,
+                                        map: map,
+                                        draggable: true
                                     });
-                                }
 
-                                function placeMarker(location) {
-                                    if (marker) {
-                                        marker.setPosition(location);
-                                    } else {
-                                        marker = new google.maps.Marker({
-                                            position: location,
-                                            map: map,
-                                        });
-                                    }
+                                    // Setup autocomplete
+                                    autocomplete = new Autocomplete(document.getElementById("searchInput"));
+                                    autocomplete.bindTo("bounds", map);
+
+                                    autocomplete.addListener("place_changed", () => {
+                                        const place = autocomplete.getPlace();
+                                        if (!place.geometry) return;
+
+                                        map.setCenter(place.geometry.location);
+                                        map.setZoom(15);
+                                        marker.setPosition(place.geometry.location);
+                                    });
+
+                                    // When marker is manually dragged
+                                    marker.addListener("dragend", () => {
+                                        const p = marker.getPosition();
+                                        document.querySelector("#searchInput").value =
+                                            `${p.lat().toFixed(6)}, ${p.lng().toFixed(6)}`;
+
+                                        document.querySelector("#pickup_location").value =
+                                            `{${p.lat().toFixed(6)}, ${p.lng().toFixed(6)}}`;
+
+
+                                    });
                                 }
                             </script>
 
@@ -279,6 +322,18 @@
 
                             //messageBox.html(`<p style="color: green;">${}</p>`);
                             form.reset();
+                        } else if (data.status === 'error') {
+
+                            $("#loading").css('visibility', 'hidden');
+
+                            Swal.fire({
+                                icon: 'danger',
+                                title: 'Already Exists',
+                                text: data.message,
+                                timer: 2500,
+                                showConfirmButton: true,
+                            });
+
                         } else {
                             $("#loading").css('visibility', 'hidden');
                             alert(data.message);

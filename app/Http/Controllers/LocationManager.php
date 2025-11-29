@@ -107,7 +107,13 @@ class LocationManager extends Controller
         $filePath = storage_path('app/loc/' . $fileName.".json");
 
         if (!file_exists($filePath)) {
-            return "File does not exist.";
+
+            //create file
+            $file = fopen(storage_path('app/loc/' . $fileName), 'w'); // 'w' mode = write
+           // fwrite($file, json_encode( $data_json));
+            fclose($file);
+
+           // return "File does not exist.";
         }
 
         $content = file_get_contents($filePath);
