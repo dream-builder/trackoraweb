@@ -139,26 +139,27 @@
 
 .menu > li {
   position: relative;
- 
- 
   cursor: pointer;
 }
 
 .menu > li:hover {
-  background: #c3c2c2;
+  background: #3a51ff;
 }
 
 .menu li ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  background: #c3c2c2;
+  background: #f1f0f0;
   position: absolute;
   top: 100%;
   left: 0;
   width: 150px;
-
   display: none; /* hide by default */
+  border:solid 1px #3a51ff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #2d2d2d;
+ 
 }
 
 .menu li:hover > ul {
@@ -166,12 +167,22 @@
 }
 
 .menu li ul li {
+  text-align: left;
   padding: 10px 15px;
   color: #fff;
+  
+
+
+}
+
+.menu li ul li a{
+    text-align: left;
+    text-decoration: none;
 }
 
 .menu li ul li:hover {
   background: #c3c2c2;
+   border-radius: 10px;
 }
 
 
@@ -186,28 +197,28 @@
                         <ul>
 
                             @foreach (config('locales.supported') as $locale)
-                                <li><a href="/{{ $locale }}">{{$locale}}</a></li>
+                                <li><a href="/{{ $locale }}">{{ucfirst($locale)}}</a></li>
                             @endforeach
                         </ul>
 
                     </li>
 
                 </ul>&nbsp;
-                <a href="{{ route('login') }}" class="btn btn-outline-primary">Login</a> &nbsp;
-                <a href="{{ route('register') }}" class="btn btn-outline-success">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-outline-primary">{{ __('landingpage.Login') }}</a> &nbsp;
+                <a href="{{ route('register') }}" class="btn btn-outline-success">{{ __('landingpage.Register') }}</a>
             </div>
         </div>
     </nav>
 
     <section class="hero container">
         <div class="col-md-6">
-            <h1>School Bus Tracking System {{ __('messages.welcome') }}</h1>
+            <h1>School Bus Tracking System</h1>
             <p>A smart tracking solution that allows students to view real-time bus locations and estimated arrival
                 times, ensuring timely pickups. Parents can monitor their child's journey for enhanced safety and peace
                 of mind, receiving instant alerts on boarding, drop-offs, and route changes.</p>
             <div>
-                <a href="#" class="btn btn-primary me-2">View Demo</a>
-                <a href="#" class="btn btn-dark">Get in touch</a>
+                <a href="#" class="btn btn-primary me-2">{{ __('landingpage.View Demo') }}</a>
+                <a href="#" class="btn btn-dark">{{ __('landingpage.Get In Touch') }}</a>
             </div>
         </div>
         <div class="col-md-6" style="text-align: right">

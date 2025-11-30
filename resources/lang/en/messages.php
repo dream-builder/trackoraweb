@@ -1,6 +1,10 @@
 <?php
 
 return [
-    'welcome' => 'Welcome to our website',
-    'dashboard' => 'Dashboard',
+    'Email' => 'Email',
+    'Password' => 'Password',
+    'Remember me' => 'Remember me',
+    'I forgot my password',
+    'Register' => 'Register',
+    'Sign In' => 'Sign In'
 ];

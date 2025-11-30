@@ -52,7 +52,7 @@
 
             </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">{{ __('login.Sign in to start your session') }}</p>
 
 
                 <form method="POST" action="{{ route('login') }}">
@@ -61,7 +61,7 @@
                         <div class="form-floating">
                             <input id="email" name="email" required autofocus autocomplete="username"
                                 type="email" class="form-control" value="" placeholder="" />
-                            <label for="loginEmail">Email</label>
+                            <label for="loginEmail">{{ __('login.E-mail') }}</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="form-floating">
                             <input id="password" type="password" name="password" required
                                 autocomplete="current-password" class="form-control" placeholder="" />
-                            <label for="password">Password</label>
+                            <label for="password">{{ __('login.Password') }}</label>
                         </div>
                         <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
                     </div>
@@ -79,7 +79,7 @@
                         <div class="col-8 d-inline-flex align-items-center">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+                                <label class="form-check-label" for="flexCheckDefault"> {{ __('login.Remember me') }} </label>
                             </div>
                         </div>
                         <!-- /.col -->
@@ -102,9 +102,9 @@
                     </a>
                 </div> --}}
                 <!-- /.social-auth-links -->
-                <p class="mb-1" style="margin-top: 30px;"><a href="forgot-password.html">I forgot my password</a></p>
+                <p class="mb-1" style="margin-top: 30px;"><a href="forgot-password.html">{{ __('login.I forgot my password') }}</a></p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center"> Register a new membership </a>
+                    <a href="register.html" class="text-center"> {{ __('login.Register') }} </a>
                 </p>
             </div>
             <!-- /.login-card-body -->

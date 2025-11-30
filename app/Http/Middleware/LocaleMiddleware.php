@@ -11,7 +11,7 @@ class LocaleMiddleware
     {
         $locale = $request->segment(1); // get first segment from URL
 
-        if (in_array($locale, ['en', 'bn', 'ar'])) {
+        if (in_array($locale, ['en', 'bn', 'fr'])) {
             App::setLocale($locale);
             session(['locale' => $locale]);
         } 

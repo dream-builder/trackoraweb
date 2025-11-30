@@ -1,5 +1,5 @@
 <?php
 return [
-    'supported' => ['en', 'es','bn'], // english, bangla, spanish
+    'supported' => ['en', 'fr','bn'], // english, bangla, spanish
     'default' => 'bn',
 ];
