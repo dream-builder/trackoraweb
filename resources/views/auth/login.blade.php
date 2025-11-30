@@ -85,7 +85,7 @@
                         <!-- /.col -->
                         <div class="col-4">
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-outline-primary">Sign In</button>
+                                <button type="submit" class="btn btn-outline-primary">{{ __('login.Sign In') }}</button>
                             </div>
                         </div>
                         <!-- /.col -->

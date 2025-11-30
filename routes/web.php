@@ -146,8 +146,26 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'bn'])) {
+    if (in_array($locale, ['en', 'bn', 'ar'])) {
         session(['locale' => $locale]);
     }
-    return redirect()->back();
+    return back();
 });
+
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|bn|es'], 'middleware' => 'web'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::get('/about', [DashboardController::class, 'index'])->name('about');
+});
+
+Route::get('/', function () {
+    return redirect(app()->getLocale() ?: config('locales.default'));
+});
+
+// Language prefix group
+Route::prefix('{locale}')->group(function () {
+    Route::get('/', function ($locale) {
+        session(['locale' => $locale]);
+        return view('welcome'); 
+    });
+});
+
