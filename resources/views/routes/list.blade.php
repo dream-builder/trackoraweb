@@ -50,7 +50,7 @@
 
 
                                     @foreach ($routes as $route)
-                                        <tr data-route_id="{{ $route->id }}" class="route-detail">
+                                        <tr data-route_id="{{ $route->id }}" class="route-detail pointer">
                                             <td>{{ $route->route_name }}</td>
                                             <td>{{ $route->route_source }}</td>
                                             <td>{{ $route->route_destination }}</td>
@@ -109,6 +109,12 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+    </style>
 @endsection
 
 @section('scripts')
