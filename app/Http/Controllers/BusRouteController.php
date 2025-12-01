@@ -106,4 +106,12 @@ class BusRouteController extends Controller
        return $students;
 
     }
+
+
+    public function list(){
+        $sql = "select * from bus_routes";
+        $routes = DB::select($sql);
+
+        return view('routes.list',['routes'=>$routes]);
+    }
 }

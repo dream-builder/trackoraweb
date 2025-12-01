@@ -34,7 +34,7 @@
                          <!--begin::Message-->
                          <div class="d-flex">
                              <div class="flex-shrink-0">
-                                 <img src="adminlte3/assets/img/user1-128x128.jpg" alt="User Avatar"
+                                 <img src="{{ asset('adminlte3/assets/img/user1-128x128.jpg') }}" alt="User Avatar"
                                      class="img-size-50 rounded-circle me-3" />
                              </div>
                              <div class="flex-grow-1">
@@ -55,7 +55,7 @@
                          <!--begin::Message-->
                          <div class="d-flex">
                              <div class="flex-shrink-0">
-                                 <img src="adminlte3/assets/img/user8-128x128.jpg" alt="User Avatar"
+                                 <img src="{{ asset('adminlte3/assets/img/user8-128x128.jpg') }}" alt="User Avatar"
                                      class="img-size-50 rounded-circle me-3" />
                              </div>
                              <div class="flex-grow-1">
@@ -78,7 +78,7 @@
                          <!--begin::Message-->
                          <div class="d-flex">
                              <div class="flex-shrink-0">
-                                 <img src="adminlte3/assets/img/user3-128x128.jpg" alt="User Avatar"
+                                 <img src="{{ asset('adminlte3/assets/img/user3-128x128.jpg') }}" alt="User Avatar"
                                      class="img-size-50 rounded-circle me-3" />
                              </div>
                              <div class="flex-grow-1">
@@ -133,13 +133,13 @@
              <!--begin::User Menu Dropdown-->
              <li class="nav-item dropdown user-menu">
                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                     <img src="images/student_m.png" class="user-image rounded-circle shadow" alt="User Image" />
+                     <img src="{{ asset('images/student_m.png') }}" class="user-image rounded-circle shadow" alt="User Image" />
                      <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                  </a>
                  <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                      <!--begin::User Image-->
                      <li class="user-header text-bg-primary">
-                         <img src="images/student_m.png" class="rounded-circle shadow" alt="Male Student" />
+                         <img src="{{ asset('images/student_m.png') }}" class="rounded-circle shadow" alt="Male Student" />
                          <p>
                              {{ auth()->user()->name }} - Student
                              <small></small>

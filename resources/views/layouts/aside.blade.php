@@ -9,7 +9,7 @@
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
             {{-- <i class="nav-icon bi bi-bus-front-fill" style="color: yellow"></i> --}}
-            <img src="images/trackora_logo_s.png" style="width: 30px; border-radius:5px;"> <span
+            <img src="{{ asset('images/trackora_logo_s.png') }}" style="width: 30px; border-radius:5px;"> <span
                 class="brand-text fw-light">{{ config('app.name') }}</span>
             <!--end::Brand Text-->
         </a>
@@ -165,21 +165,23 @@
                         <a href="#" class="nav-link">
                             <i class="bi bi-sign-turn-slight-right-fill"></i>
                             <p>
-                                Route Management
+                                Route management
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            
                             <li class="nav-item">
                                 <a href="{{ route('route.show') }}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>List</p>
+                                    <p>Add new route</p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ route('route.list') }}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Create</p>
+                                    <p>Route list</p>
                                 </a>
                             </li>
 
