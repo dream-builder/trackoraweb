@@ -109,9 +109,25 @@ class BusRouteController extends Controller
 
 
     public function list(){
-        $sql = "select * from bus_routes";
+        $sql = "SELECT * FROM route_list_with_student_and_driver";
         $routes = DB::select($sql);
 
         return view('routes.list',['routes'=>$routes]);
+    }
+
+
+     public function view(Request $request){
+        $sql = "SELECT * FROM route_list_with_student_and_driver where id=" .$request->input('route_id');
+        $routes = DB::select($sql);
+
+        $sql ="select s.id student_id, s.first_name || ' ' || s.last_name as student_name, s.gender, s.phone_number, s.email from student_route_map srm
+	           left join students s on s.id = srm.student_id
+               where srm.route_id=".$request->input('route_id');
+
+        $students = DB::select($sql);
+
+       // echo $sql;
+
+        return view('routes.view',['routes'=>$routes,'students'=>$students]);
     }
 }
