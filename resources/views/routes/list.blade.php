@@ -50,19 +50,21 @@
 
 
                                     @foreach ($routes as $route)
-                                        <tr data-route_id="{{ $route->id }}" class="route-detail pointer">
+                                        <tr id="route-{{ $route->id }}">
                                             <td>{{ $route->route_name }}</td>
                                             <td>{{ $route->route_source }}</td>
                                             <td>{{ $route->route_destination }}</td>
                                             <td style="text-align: center">{{ $route->assigned_drivers }}</td>
                                             <td style="text-align: center">{{ $route->assigned_passengers }}</td>
                                             <td>
-                                                <a href="{{ route('route.view') }}?route_id={{ $route->id }}"
-                                                    class="text-info" title="Detail"><i class="bi bi-eye-fill"></i></a>
-                                                <a href="#" class="text-primary" title="Edit"><i
-                                                        class="bi bi-pencil-square"></i></a>
-                                                <a href="#" class="text-danger" title="Remove"><i
-                                                        class="bi bi-trash-fill"></i></a>
+                                                <span class="route-detail pointer" data-route_id="{{ $route->id }}"><i
+                                                        class="bi bi-eye-fill" style="color: blue"></i></span>
+
+                                                <span class="pointer"><i class="bi bi-pencil-square"></i></span>
+
+                                                <span data-route_id="{{ $route->id }}"
+                                                    data-name="{{ $route->route_name }}" class="route-remove pointer"
+                                                    style="color: red"><i class="bi bi-trash-fill"></i></span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -152,6 +154,44 @@
 
 
 
+            });
+
+            $(".route-remove").click(function() {
+
+                var route_id = $(this).data('route_id');
+                var route_name = $(this).data('name');
+
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You want to remove route:  " + route_name,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loading").css('visibility', 'visible');
+                        $.ajax({
+                            url: "/routes/delete",
+                            type: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                route_id: route_id
+                            },
+                            success: function() {
+
+                                $("#route-" + route_id).remove();
+                                $("#loading").css('visibility', 'hidden');
+                                Swal.fire("Deleted!", "Route has been removed",
+                                    "success");
+                            }
+                        });
+                    } else {
+                        $("#loading").css('visibility', 'hidden');
+                        //Swal.fire("Cancelled", "Your data is safe!", "info");
+                    }
+                });
             });
         });
     </script>

@@ -1,14 +1,13 @@
 <div class="col-md-12">
     <div class="card card-info card-outline mb-4">
         <div class="card-body">
-            <div id="map" style="height: 500px"></div>
+            <div id="map" style="height: 300px"></div>
         </div>
 
         <?php
         $source = json_decode($routes[0]->source_latlng);
         $destination = json_decode($routes[0]->destination_latlng);
         $way_points = html_entity_decode($routes[0]->route_waypoints);
-        
         ?>
 
         <script>
@@ -29,10 +28,7 @@
                         location: element
                     }))
                 });
-
-
                 return waypoints;
-
             }
 
 
@@ -120,7 +116,12 @@
 
                 <tr>
                     <td>Way points:</td>
-                    <td>{{ $routes[0]->route_waypoints }}</td>
+                    <td>
+                        @foreach (json_decode($routes[0]->route_waypoints) as $driver)
+                            <small class="badge badge-secondary">{{ $driver->location }}</small>
+                        @endforeach
+
+                    </td>
                 </tr>
 
             </table>
@@ -134,8 +135,29 @@
             <div class="card-title">Drivers</div>
         </div>
         <!--end::Header-->
-        <div class="card-body">
+        <div class="card-body" style="height: 200px; overflow:scroll;">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>License No.</th>
+                    <th>License type.</th>
 
+                </tr>
+
+                @foreach ($drivers as $driver)
+                    <tr>
+                        <td>{{ $driver->driver_id }}</td>
+                        <td>{{ $driver->name }}</td>
+                        <td>{{ $driver->phone }}</td>
+                        <td>{{ $driver->license_no }}</td>
+                        <td>{{ $driver->license_type }}</td>
+                    </tr>
+                @endforeach
+
+
+            </table>
         </div>
     </div>
 
@@ -146,7 +168,7 @@
             <div class="card-title">Students</div>
         </div>
         <!--end::Header-->
-        <div class="card-body" style="height: 300px; overflow:scroll; ">
+        <div class="card-body" style="height: 200px; overflow:scroll; ">
 
             <table class="table">
                 <tr>

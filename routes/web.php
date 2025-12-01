@@ -58,6 +58,7 @@ Route::post('/loadroute', [BusRouteController::class, 'load_route'])->name('rout
 Route::post('/route/get_students_on_route', [BusRouteController::class, 'get_students_on_route']);
 Route::get('/routes/list', [BusRouteController::class, 'list'])->name('route.list');
 Route::get('/routes/view', [BusRouteController::class, 'view'])->name('route.view');
+Route::post('/routes/delete', [BusRouteController::class, 'delete'])->name('route.delete');
 
 
 

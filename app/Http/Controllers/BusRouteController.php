@@ -126,8 +126,38 @@ class BusRouteController extends Controller
 
         $students = DB::select($sql);
 
+
+         $sql ="select d.id driver_id, d.name, d.phone, d.license_no, d.license_type from driver_route_map drm
+                left join drivers d on d.id = drm.driver_id
+                where drm.route_id=".$request->input('route_id');
+
+        $drivers = DB::select($sql);
+
        // echo $sql;
 
-        return view('routes.view',['routes'=>$routes,'students'=>$students]);
+        return view('routes.view',['routes'=>$routes,'students'=>$students, 'drivers'=>$drivers]);
+    }
+
+
+    public function delete(Request $request){
+
+        try{
+            DB::delete("DELETE FROM bus_routes WHERE id = ?", [$request->input('route_id')]);
+             return response()->json([
+                'status' => 'success',
+                'message' => 'Deleted!", "Route has been removed'
+            ]);
+        }catch (\Exception $e) {
+
+            // Show or return the error
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete route information: ' . $e->getMessage()
+            ], 500);
+        }
+
+
+
+
     }
 }
