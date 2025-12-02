@@ -143,13 +143,14 @@ class APIController extends Controller
     public function get_route(Request $request){
 
         //get User role
-        $sql = "select b.id bus_id,b.bus_name, b.bus_registration_number, dvm.driver_id, d.name driver_name, d.phone driver_phone, br.id route_id, br.route_name, br.route_source, br.route_destination, br.route_waypoints, br.source_latlng, br.destination_latlng from bus_routes br
-                left join bus b on b.bus_route::integer = br.id
-                left join student_bus_map sbm on sbm.bus_id = b.id
-				left join driver_vehicle_map dvm on dvm.vehicle_id = bus_id
-				left join drivers d on d.id = dvm.driver_id
-                where sbm.student_id = " . $request->get('id');
+        // $sql = "select b.id bus_id,b.bus_name, b.bus_registration_number, dvm.driver_id, d.name driver_name, d.phone driver_phone, br.id route_id, br.route_name, br.route_source, br.route_destination, br.route_waypoints, br.source_latlng, br.destination_latlng from bus_routes br
+        //         left join bus b on b.bus_route::integer = br.id
+        //         left join student_bus_map sbm on sbm.bus_id = b.id
+		// 		left join driver_vehicle_map dvm on dvm.vehicle_id = bus_id
+		// 		left join drivers d on d.id = dvm.driver_id
+        //         where sbm.student_id = " . $request->get('id');
 
+         $sql = "select * from get_route_by_student where student_id = " .    $request->get('id');
         try{
             $result = DB::select($sql);
 
