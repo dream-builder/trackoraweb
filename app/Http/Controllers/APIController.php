@@ -64,18 +64,23 @@ class APIController extends Controller
     function get_user_detail($user_id){
 
         //get User role
-        $sql = "select u.name, u.email, r.role_name, r.id from users u
+        $sql = "select u.id user_id, usm.student_id, drm.driver_id, u.name, u.email, r.id role_id, LOWER(r.role_name) from users u
                 left join user_role_map urm on urm.user_id = u.id
                 left join roles r on r.id = urm.role_id
+                left join user_student_map usm on usm.user_id = u.id
+                left join driver_user_map drm on drm.user_id = u.id
                 where u.id = " . $user_id;
 
         //echo $sql;
 
         try{
             $result = DB::select($sql);
-            $this->user['id'] =$user_id;
+            $this->user['user_id'] =$user_id;
             $this->user['name']=$result[0]->name;
             $this->user['email']=$result[0]->email;
+            $this->user['student_id']=$result[0]->student_id;
+            $this->user['driver_id']=$result[0]->driver_id;
+            $this->user['role_id']=$result[0]->role_id;
             $this->user['role']=$result[0]->role_name;
 
         }catch(Exception $e){
