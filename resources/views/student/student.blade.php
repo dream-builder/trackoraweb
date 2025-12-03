@@ -244,7 +244,7 @@
                                             `${p.lat().toFixed(6)}, ${p.lng().toFixed(6)}`;
 
                                         document.querySelector("#pickup_location").value =
-                                            `{${p.lat().toFixed(6)}, ${p.lng().toFixed(6)}}`;
+                                            `[${p.lat().toFixed(6)}, ${p.lng().toFixed(6)}]`;
 
 
                                     });
