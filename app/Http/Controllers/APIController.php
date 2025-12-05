@@ -64,7 +64,8 @@ class APIController extends Controller
     function get_user_detail($user_id){
 
         //get User role
-        $sql = "select u.id user_id, usm.student_id, drm.driver_id, u.name, u.email, r.id role_id, LOWER(r.role_name) role_name, d.phone driver_phone
+        $sql = "select u.id user_id, usm.student_id, drm.driver_id, u.name, u.email, r.id role_id, LOWER(r.role_name) role_name, d.phone driver_phone,
+                    d.license_no, d.license_type
 
                 from users u
                 left join user_role_map urm on urm.user_id = u.id
@@ -83,6 +84,9 @@ class APIController extends Controller
             $this->user['email']=$result[0]->email;
             $this->user['student_id']=$result[0]->student_id;
             $this->user['driver_id']=$result[0]->driver_id;
+            $this->user['driver_phone']=$result[0]->driver_phone;
+            $this->user['driver_license_no']=$result[0]->license_no;
+            $this->user['driver_license_type']=$result[0]->license_type;
             $this->user['role_id']=$result[0]->role_id;
             $this->user['role']=$result[0]->role_name;
 
