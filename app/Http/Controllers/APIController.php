@@ -64,11 +64,14 @@ class APIController extends Controller
     function get_user_detail($user_id){
 
         //get User role
-        $sql = "select u.id user_id, usm.student_id, drm.driver_id, u.name, u.email, r.id role_id, LOWER(r.role_name) role_name from users u
+        $sql = "select u.id user_id, usm.student_id, drm.driver_id, u.name, u.email, r.id role_id, LOWER(r.role_name) role_name, d.phone driver_phone
+
+                from users u
                 left join user_role_map urm on urm.user_id = u.id
                 left join roles r on r.id = urm.role_id
                 left join user_student_map usm on usm.user_id = u.id
                 left join driver_user_map drm on drm.user_id = u.id
+                left join drivers d  on d.id = drm.driver_id
                 where u.id = " . $user_id;
 
         //echo $sql;
