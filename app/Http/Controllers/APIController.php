@@ -207,10 +207,14 @@ class APIController extends Controller
 
     function get_route_by_driver_id(Request $request){
 
-        $sql = "select br.id route_id, br.route_name, b.id bus_id, b.bus_name from bus_routes br
-                left join bus b on b.bus_route::integer = br.id
-                left join driver_vehicle_map dvm on dvm.vehicle_id = b.id
-                where dvm.driver_id = " .  $request->get('id');
+        // $sql = "select br.id route_id, br.route_name, b.id bus_id, b.bus_name from bus_routes br
+        //         left join bus b on b.bus_route::integer = br.id
+        //         left join driver_vehicle_map dvm on dvm.vehicle_id = b.id
+        //         where dvm.driver_id = " .  $request->get('id');
+
+        $sql = "select br.id route_id, br.route_name from driver_route_map drm
+                left join bus_routes br on br.id= drm.route_id
+                where drm.driver_id =" . $request->get('id');
 
         try{
             $result = DB::select($sql);
