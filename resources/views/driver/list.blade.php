@@ -44,7 +44,7 @@
                                         <th>Gender</th>
                                         <th>Driving License No.</th>
                                         <th>Phone</th>
-                                        <th>Assigned Bus</th>
+                                        <th>Assigned Routes</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -61,12 +61,21 @@
                                                 <td>{{ Str::ucfirst($driver->gender) }}</td>
                                                 <td> {{ $driver->license_no }}</td>
                                                 <td>{{ $driver->phone }}</td>
-                                                <td>{{ $driver->bus_name }}</td>
+                                                <td>@php
+                                                    $routes = $driver->routes ? explode(',', $driver->routes) : [];
+                                                @endphp
+
+
+                                                    @foreach ($routes as $route)
+                                                        <span class="badge rounded-pill bg-info text-dark">
+                                                            {{ trim($route) }}
+                                                        </span>
+                                                    @endforeach
+                                                </td>
 
                                                 <td>
                                                     <button type="button" class="btn btn-default"
-                                                        data-driver_id="{{ $driver->id }}"
-                                                        data-bus_id="{{ $driver->bus_id }}"
+                                                        data-driver_id="{{ $driver->id }}" data-bus_id=""
                                                         data-driver_name="{{ $driver->name }}">
                                                         <i class="bi bi-send-plus-fill"></i>
                                                     </button>

@@ -11,9 +11,25 @@ use Illuminate\Support\Facades\Hash;
 class DriversController extends Controller
 {
      public function index(){
-        $sql = "select d.id, d.name,d.gender, d.phone, d.license_no, DATE_PART('year', AGE(d.dob::timestamp)) AS age, b.id as bus_id, b.bus_name  from drivers d
-                left join driver_vehicle_map dvm on dvm.driver_id= d.id
-                left join bus b on b.id = dvm.vehicle_id order by d.created_at desc";
+        $sql = "SELECT
+                    d.id,
+                    d.name,
+                    d.gender,
+                    d.phone,
+                    d.license_no,
+                    DATE_PART('year', AGE(d.dob::timestamp)) AS age,
+                    STRING_AGG(br.route_name, ', ' ORDER BY br.route_name) AS routes
+                FROM drivers d
+                LEFT JOIN driver_route_map drm ON drm.driver_id = d.id
+                LEFT JOIN bus_routes br ON br.id = drm.route_id
+                GROUP BY
+                    d.id,
+                    d.name,
+                    d.gender,
+                    d.phone,
+                    d.license_no,
+                    d.dob;
+                ";
 
        $drivers = DB::select($sql);
 
