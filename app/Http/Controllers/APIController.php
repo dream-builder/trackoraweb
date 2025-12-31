@@ -311,4 +311,27 @@ class APIController extends Controller
 
     }
 
+    public function get_bus_by_route(Request $request){
+
+       
+         $sql = "SELECT * FROM get_bus_by_route where route_name = " .    $request->get('id');
+        try{
+            $result = DB::select($sql);
+
+            return response()->json([
+                'status' => true,
+                'data' =>  $result
+            ]);
+
+        }catch(Exception $e){
+
+            response()->json([
+            'status' => false,
+            'code' => 500,
+            'error' =>  $e
+        ]);
+        }
+
+    }
+
 }

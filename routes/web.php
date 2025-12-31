@@ -51,6 +51,7 @@ Route::get('/drivers', [DriversController::class, 'index'])->name('driver.show')
 Route::get('/addnewdriver', [DriversController::class, 'addnewdriver'])->name('driver.addnew');
 Route::post('/drivers/save', [DriversController::class, 'save']);
 Route::post('/drivers/assignvehicle', [DriversController::class, 'assignvehicle'])->name('driver.assignvehicle');
+Route::post('/drivers/assignroute', [DriversController::class, 'assignroute'])->name('driver.assignroute');
 
 Route::get('/routes', [BusRouteController::class, 'index'])->name('route.show');
 Route::post('/saveroute', [BusRouteController::class, 'save_route'])->name('route.save');
@@ -113,6 +114,8 @@ Route::get('/api/get_route_by_driver_id', [APIController::class, 'get_route_by_d
 Route::get('/api/get_route_by_id', [APIController::class, 'get_route_by_id']);
 Route::get('/api/get_student_by_route_id', [APIController::class, 'get_student_by_route_id']);
 Route::get('/api/update_student_status', [APIController::class, 'update_student_status']);
+Route::get('/api/get_bus_by_route', [APIController::class, 'get_bus_by_route']);
+
 
 
 

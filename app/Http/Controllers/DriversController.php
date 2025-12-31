@@ -20,8 +20,8 @@ class DriversController extends Controller
                     DATE_PART('year', AGE(d.dob::timestamp)) AS age,
                     STRING_AGG(br.route_name, ', ' ORDER BY br.route_name) AS routes
                 FROM drivers d
-                LEFT JOIN driver_route_map drm ON drm.driver_id = d.id
-                LEFT JOIN bus_routes br ON br.id = drm.route_id
+                LEFT JOIN bus_route_driver_map brdm ON brdm.driver_id = d.id
+                LEFT JOIN bus_routes br ON br.id = brdm.route_id
                 GROUP BY
                     d.id,
                     d.name,
@@ -36,7 +36,13 @@ class DriversController extends Controller
        $sql = "select * from bus";
        $buses = DB::select($sql);
 
-        return view('driver.list',['drivers'=>$drivers, 'buses'=>$buses]);
+       $sql = "select id, route_name, route_source, route_destination from bus_routes";
+       $routes = DB::select($sql);
+
+       //var_dump($routes);
+       //var_dump($buses);
+
+       return view('driver.list',['drivers'=>$drivers, 'buses'=>$buses, 'broutes'=> $routes]);
     }
 
     public function addnewbus()  {
@@ -149,6 +155,31 @@ class DriversController extends Controller
                 DB::table('driver_vehicle_map')->insert([
                     'driver_id'    => $request->input('driver_id'),
                     'vehicle_id'    => $request->input('bus_id'),
+                    'created_at'   => now()
+                ]);
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Information save successfully!'
+                ]);
+
+            }catch (\Exception $e) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Failed to save information: ' . $e->getMessage()
+                ], 500);
+            }
+
+    }
+
+    public function assignroute(Request $request){
+
+            try{
+
+
+                DB::table('bus_route_driver_map')->insert([
+                    'driver_id'    => $request->input('driver_id'),
+                    'route_id'    => $request->input('route_id'),
                     'created_at'   => now()
                 ]);
 

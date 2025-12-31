@@ -106,12 +106,12 @@
         </div>
         <div id="assing-modal">
             <form class="needs-validation" novalidate="" action="/drivers/assignvehicle" method="POST"
-                id="driver-assignbus">
+                id="driver-assignroute">
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Assign Vehicle</h4>
+                                <h4 class="modal-title">Assign Route</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -119,24 +119,24 @@
                             <div class="modal-body">
 
 
-                                <input type="text" id="driver-id" name="driver_id">
+                                <input type="hidden" id="driver-id" name="driver_id">
                                 <div class="form-group">
                                     <label class="form-label">Driver</label>
                                     <input type="text" class="form-control" id="driver-name" disabled="">
                                 </div>
 
 
-
                                 <div class="form-group">
-                                    <label class="form-label">Assigned vehicle</label>
-                                    <select id="assigned_bus_id" class="form-control" name="bus_id">
+                                    <label class="form-label">Assigned Routes</label>
+                                    <select id="assigned_bus_id" class="form-control" name="route_id">
                                         <option value="0">Select</option>
-                                        @if (@isset($buses) && count($buses) > 0)
-                                            @foreach ($buses as $bus)
-                                                <option value="{{ $bus->id }}">{{ $bus->bus_name }}</option>
-                                            @endforeach
+                                        @if(isset($broutes))
+                                            @if(is_array($broutes) && count($broutes) > 0)
+                                                @foreach($broutes as $route)
+                                                    <option value="{{ $route->id }}">{{ $route->route_name }} [{{$route->route_source}}, {{$route->route_destination}}] </option>
+                                                @endforeach
+                                            @endif
                                         @endif
-
                                     </select>
 
                                 </div>
@@ -197,18 +197,18 @@
             }
         }
 
-        document.getElementById('driver-assignbus').addEventListener('submit', function(e) {
+        document.getElementById('driver-assignroute').addEventListener('submit', function(e) {
 
             e.preventDefault(); // prevent actual submit
             const form = this;
             const formData = new FormData(form);
             const token = $('input[name="_token"]').val();
-            const isValid = validateBootstrapForm('driver-assignbus');
+            const isValid = validateBootstrapForm('driver-assignroute');
 
             if (isValid) {
                 $("#loading").css('visibility', 'visible');
                 $.ajax({
-                    url: '/drivers/assignvehicle',
+                    url: '/drivers/assignroute',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': token
@@ -221,7 +221,7 @@
 
                         if (data.status === 'success') {
 
-
+                            $("#modal-default").modal('hide');
                             $("#loading").css('visibility', 'hidden');
 
                             Swal.fire({
