@@ -212,7 +212,7 @@ class APIController extends Controller
         //         left join driver_vehicle_map dvm on dvm.vehicle_id = b.id
         //         where dvm.driver_id = " .  $request->get('id');
 
-        $sql = "select br.id route_id, br.route_name from driver_route_map drm
+        $sql = "select br.id route_id, br.route_name from bus_route_driver_map drm
                 left join bus_routes br on br.id= drm.route_id
                 where drm.driver_id =" . $request->get('id');
 
