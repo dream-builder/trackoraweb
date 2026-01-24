@@ -91,9 +91,9 @@ class BusController extends Controller
 
         $bus_id = $request->json('bus_id');
 
-        $sql = "select s.id, s.first_name ||' ' || s.last_name as name from student_bus_map sbm
+        $sql = "select s.id, s.first_name ||' ' || s.last_name as name from student_route_map sbm
                     left join students s on s.id = sbm.student_id
-                    where sbm.bus_id = " .$bus_id;
+                    where sbm.route_id = " .$bus_id;
 
         $students = DB::select($sql);
 
@@ -113,8 +113,8 @@ class BusController extends Controller
         try{
 
                 foreach($student_id as $id){
-                    DB::table('student_bus_map')->insert([
-                    'bus_id'   => $bus_id,
+                    DB::table('student_route_map')->insert([
+                    'route_id'   => $bus_id,
                     'student_id' => $id,
                     'created_at'   => now()
                 ]);

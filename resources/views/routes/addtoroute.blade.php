@@ -110,7 +110,7 @@
                                         <div class="card-header ui-sortable-handle" style="cursor: move;">
                                             <h3 class="card-title">
                                                 <i class="ion ion-clipboard mr-1"></i>
-                                                Students on Bus
+                                                Students in Route
                                             </h3>
                                         </div>
                                         <!-- /.card-header -->
@@ -181,7 +181,7 @@
 
             const token = $('input[name="_token"]').val();
 
-
+            $("#loading").css('visibility', 'visible');
             $.ajax({
                 url: '/bus/get_available_students',
                 method: 'POST',
@@ -203,6 +203,7 @@
                         });
 
                     }
+                    $("#loading").css('visibility', 'hidden');
                 },
                 // error: function(xhr) {
                 //     json = JSON.parse(xhr.responseText);
@@ -220,7 +221,7 @@
 
             const token = $('input[name="_token"]').val();
 
-
+            $("#loading").css('visibility', 'visible');
             $.ajax({
                 url: '/route/get_students_on_route',
                 method: 'POST',
@@ -242,6 +243,8 @@
                         });
 
                     }
+
+                    $("#loading").css('visibility', 'hidden');
                 },
                 // error: function(xhr) {
                 //     json = JSON.parse(xhr.responseText);
@@ -280,6 +283,8 @@
                 console.log(JSON.stringify(selectedStudents)); // Convert to JSON string if needed
 
 
+                $("#loading").css('visibility', 'visible');
+                
                 $.ajax({
                     url: '/bus/register_student_on_bus',
                     method: 'POST',
@@ -297,6 +302,8 @@
 
                         $("#student-on-bus").empty();
                         get_students_on_bus();
+
+                        $("#loading").css('visibility', 'hidden');
 
                     },
                     // error: function(xhr) {
