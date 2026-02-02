@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\APIController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -174,4 +175,7 @@ Route::prefix('{locale}')->group(function () {
         return view('welcome');
     });
 });
+
+
+
 

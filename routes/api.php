@@ -1,8 +1,8 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationManager;
+use App\Http\Controllers\RedisManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ Route::get('/savelivelocation', [LocationManager::class, 'savelivelocation']);
 Route::get('/getrouteinfo', [LocationManager::class, 'getrouteinfo']);
 
 
-
+Route::post('/location/store', [RedisManagerController::class, 'setUserLocation']);
+Route::get('/location/{user_id}', [RedisManagerController::class, 'getUserLocation']);
 
 
 
