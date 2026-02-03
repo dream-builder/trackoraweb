@@ -29,9 +29,9 @@ class RedisManagerController extends Controller
 
         $key = "user:location:{$request->user_id}";
 
-        Redis::hset($key, [
+        Redis::hMSet($key, [
             'user_id'   => $request->user_id,
-             'id'        => $request->id,
+            'id'        => $request->id,
             'lat'       => $request->lat,
             'lng'       => $request->lng,
             'latitude'  => $request->latitude,
@@ -43,7 +43,7 @@ class RedisManagerController extends Controller
         ]);
 
         // Auto-expire after 1 hour (optional)
-        Redis::expire($key, 5);
+        Redis::expire($key, 20);
 
         return response()->json([
             'status' => 'stored',
